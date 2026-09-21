@@ -94,4 +94,7 @@ rem development-права не выдаёт, без явного grant акти
 "%ADB%" shell pm grant %~1 %PKG% android.permission.WRITE_SECURE_SETTINGS >nul 2>nul
 rem WRITE_SETTINGS - режим правого блока руля без похода в системный экран.
 "%ADB%" shell appops set %~1 %PKG% WRITE_SETTINGS allow >nul 2>nul
+rem MANAGE_EXTERNAL_STORAGE - "Магазин" и "Обновления" читают .apk из "Загрузок" и с флешки;
+rem без него общее хранилище приложению не видно вовсе.
+"%ADB%" shell appops set %~1 %PKG% MANAGE_EXTERNAL_STORAGE allow >nul 2>nul
 goto :eof

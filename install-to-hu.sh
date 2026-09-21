@@ -64,6 +64,10 @@ for U in "" "--user 0" "--user 10"; do
   # WRITE_SETTINGS — режим правого блока руля без похода в системный экран.
   # shellcheck disable=SC2086
   "$ADB" shell appops set $U $PKG WRITE_SETTINGS allow >/dev/null 2>&1
+  # MANAGE_EXTERNAL_STORAGE — «Магазин» и «Обновления» читают .apk из «Загрузок» и с флешки;
+  # без него общее хранилище приложению не видно вовсе (эмулятор 2026-09-21).
+  # shellcheck disable=SC2086
+  "$ADB" shell appops set $U $PKG MANAGE_EXTERNAL_STORAGE allow >/dev/null 2>&1
 done
 
 CU=$("$ADB" shell am get-current-user 2>/dev/null | tr -d '\r')
