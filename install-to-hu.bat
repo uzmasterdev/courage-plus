@@ -7,8 +7,9 @@ rem Установка Courage+ 1.0 на ГУ VOYAH Courage (岚图知音) че�
 rem Ставит один APK: модель распознавания едет внутри него и распаковывается при первом запуске
 rem сервиса (несколько секунд, статус "распаковываю модель из APK" на экране ассистента).
 rem Отдельных заливок моделей больше нет — на машине они дважды срывались (docs\results\20260903\).
-rem
-rem Папка dist\ заморожена как релиз 0.17.1; здесь — мажорная 1.0. adb\win — копия из dist\.
+rem Рядом в adb\ лежит mega-installer.apk — отдельный установщик приложений (com.mega.appstore):
+rem без него "Магазин" и "Обновления" Courage+ ничего поставить не могут. Скрипт ставит его один
+rem раз, если на ГУ такого пакета ещё нет; уже стоящий не трогает.
 rem На флешку достаточно одной папки dist-1.0\ (см. README.md).
 rem
 rem Подготовка: включить USB Debugging (инженерное меню), кабель USB-A—USB-A,
@@ -17,10 +18,11 @@ rem Использование: install-to-hu.bat [путь\к.apk]   (по ум
 setlocal enabledelayedexpansion
 set "DIR=%~dp0"
 set "PKG=dev.uzmaster.ucinjector"
+set "INSTALLER_PKG=com.mega.appstore"
+set "INSTALLER_APK=%DIR%adb\mega-installer.apk"
 
 rem adb: портативный рядом, иначе из ..\dist\, иначе из PATH.
 set "ADB=%DIR%adb\win\adb.exe"
-if not exist "%ADB%" set "ADB=%DIR%..\dist\adb\win\adb.exe"
 if not exist "%ADB%" set "ADB=adb"
 
 set "APK=%~1"
@@ -32,7 +34,7 @@ if not exist "%APK%" (
 
 "%ADB%" version >nul 2>nul
 if errorlevel 1 (
-  echo [x] adb не найден. Ожидался adb\win\adb.exe рядом, в ..\dist\adb\win\ или adb в PATH.
+  echo [x] adb не найден. Ожидался adb\win\adb.exe рядом или adb в PATH.
   exit /b 1
 )
 
@@ -47,6 +49,24 @@ echo [ok] ГУ подключено.
 
 rem OEM-блокировка установки — частая причина "App not installed"
 "%ADB%" shell setprop sys.config.app_install_disabled false >nul 2>nul
+
+rem Установщик приложений для "Магазина" и "Обновлений": ставится только если его ещё нет.
+set "INSTALLER_PATH="
+for /f "tokens=*" %%p in ('"%ADB%" shell pm path %INSTALLER_PKG% 2^>nul') do set "INSTALLER_PATH=%%p"
+if not "!INSTALLER_PATH!"=="" (
+  echo [ok] Установщик приложений уже стоит
+) else if exist "%INSTALLER_APK%" (
+  echo -^> установка установщика приложений ^(mega-installer.apk^)
+  "%ADB%" install -r "%INSTALLER_APK%" >nul 2>nul
+  if errorlevel 1 (
+    echo [!] Установщик приложений не установился — "Магазин" и "Обновления" в Courage+ ставить не смогут.
+    echo     Повтори с выводом: "%ADB%" install -r "%INSTALLER_APK%"
+  ) else (
+    echo [ok] Установщик приложений установлен
+  )
+) else (
+  echo [!] Рядом нет adb\mega-installer.apk — "Магазин" и "Обновления" в Courage+ ставить не смогут.
+)
 
 for %%a in ("%APK%") do echo -^> установка %%~nxa ^(~56 МБ вместе с моделью, по USB это до минуты^)
 "%ADB%" install -r -g "%APK%" >nul 2>nul

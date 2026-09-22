@@ -3,8 +3,9 @@
 # Ставит один APK: модель распознавания едет внутри него и распаковывается при первом запуске
 # сервиса (несколько секунд, статус «распаковываю модель из APK» на экране ассистента).
 # Отдельных заливок моделей больше нет — на машине они дважды срывались (docs/results/20260903/).
-#
-# ⚠️ Папка dist/ заморожена как релиз 0.17.1; здесь — мажорная 1.0. adb/win — копия из dist/.
+# Рядом в adb/ лежит mega-installer.apk — отдельный установщик приложений (com.mega.appstore):
+# без него «Магазин» и «Обновления» Courage+ ничего поставить не могут. Скрипт ставит его один
+# раз, если на ГУ такого пакета ещё нет; уже стоящий не трогает.
 #
 # adb берётся из PATH (бандл adb/win/adb.exe — только под Windows).
 # Подготовка: включить USB Debugging (инженерное меню), кабель USB-A—USB-A,
@@ -15,6 +16,8 @@ DIR="$(cd "$(dirname "$0")" && pwd)"
 ADB="${ADB:-adb}"
 APK="${1:-$DIR/Courage-Plus.apk}"
 PKG=dev.uzmaster.ucinjector
+INSTALLER_PKG=com.mega.appstore
+INSTALLER_APK="$DIR/adb/mega-installer.apk"
 
 [ -f "$APK" ] || { echo "[x] Нет файла: $APK"; exit 1; }
 command -v "$ADB" >/dev/null 2>&1 || {
@@ -31,6 +34,21 @@ echo "[ok] ГУ подключено."
 
 # OEM-блокировка установки — частая причина "App not installed"
 "$ADB" shell setprop sys.config.app_install_disabled false >/dev/null 2>&1
+
+# Установщик приложений для «Магазина» и «Обновлений»: ставится только если его ещё нет.
+if [ -n "$("$ADB" shell pm path $INSTALLER_PKG 2>/dev/null | tr -d '\r')" ]; then
+  echo "[ok] Установщик приложений уже стоит"
+elif [ -f "$INSTALLER_APK" ]; then
+  echo "-> установка установщика приложений ($(basename "$INSTALLER_APK"))"
+  if "$ADB" install -r "$INSTALLER_APK" >/dev/null 2>&1; then
+    echo "[ok] Установщик приложений установлен"
+  else
+    echo "[!] Установщик приложений не установился — «Магазин» и «Обновления» в Courage+ ставить не смогут."
+    echo "    Повтори с выводом: $ADB install -r \"$INSTALLER_APK\""
+  fi
+else
+  echo "[!] Рядом нет adb/mega-installer.apk — «Магазин» и «Обновления» в Courage+ ставить не смогут."
+fi
 
 echo "-> установка $(basename "$APK") (~56 МБ вместе с моделью, по USB это до минуты)"
 if "$ADB" install -r -g "$APK" >/dev/null 2>&1; then
