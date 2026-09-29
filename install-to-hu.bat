@@ -8,13 +8,15 @@ rem Ставит один APK: модель распознавания едет 
 rem сервиса (несколько секунд, статус "распаковываю модель из APK" на экране ассистента).
 rem Отдельных заливок моделей больше нет — на машине они дважды срывались (docs\results\20260903\).
 rem Рядом в adb\ лежит mega-installer.apk — отдельный установщик приложений (com.mega.appstore):
-rem без него "Магазин" и "Обновления" Courage+ ничего поставить не могут. Скрипт ставит его один
-rem раз, если на ГУ такого пакета ещё нет; уже стоящий не трогает.
+rem без него "Магазин" и "Обновления" Courage+ ничего поставить не могут. Скрипт ставит его, если
+rem на ГУ такого пакета нет или его versionCode ниже INSTALLER_MIN_CODE (тогда ставит поверх);
+rem свежий не трогает. Право REQUEST_INSTALL_PACKAGES выдаёт ему при каждом запуске.
 rem На флешку достаточно одной папки dist-1.0\ (см. README.md).
 rem
 rem Подготовка: включить USB Debugging (инженерное меню), кабель USB-A—USB-A,
 rem подтвердить отладку на экране авто.
 rem Использование: install-to-hu.bat [путь\к.apk]   (по умолчанию Courage-Plus.apk рядом)
+rem Под enabledelayedexpansion "!" в echo съедается: маркер предупреждения пишется как [^^!].
 setlocal enabledelayedexpansion
 set "DIR=%~dp0"
 set "PKG=dev.uzmaster.ucinjector"
@@ -22,7 +24,7 @@ set "INSTALLER_PKG=com.mega.appstore"
 set "INSTALLER_APK=%DIR%adb\mega-installer.apk"
 set "INSTALLER_MIN_CODE=3"
 
-rem adb: портативный рядом, иначе из ..\dist\, иначе из PATH.
+rem adb: портативный рядом (adb\win\adb.exe), иначе из PATH.
 set "ADB=%DIR%adb\win\adb.exe"
 if not exist "%ADB%" set "ADB=adb"
 
@@ -70,13 +72,13 @@ if defined INSTALLER_OK (
   )
   "%ADB%" install -r "%INSTALLER_APK%" >nul 2>nul
   if errorlevel 1 (
-    echo [!] Установщик приложений не установился — "Магазин" и "Обновления" в Courage+ ставить не смогут.
+    echo [^^!] Установщик приложений не установился — "Магазин" и "Обновления" в Courage+ ставить не смогут.
     echo     Повтори с выводом: "%ADB%" install -r "%INSTALLER_APK%"
   ) else (
     echo [ok] Установщик приложений установлен
   )
 ) else (
-  echo [!] Рядом нет adb\mega-installer.apk — "Магазин" и "Обновления" в Courage+ ставить не смогут.
+  echo [^^!] Рядом нет adb\mega-installer.apk — "Магазин" и "Обновления" в Courage+ ставить не смогут.
 )
 rem Право установщика ставить приложения: без него система отвечает "For your security..."
 rem ^(эмулятор 2026-09-28^). appop переживает перезагрузку; лишние --user молча отпадают.
