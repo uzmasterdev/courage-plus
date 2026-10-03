@@ -86,6 +86,18 @@ rem ^(эмулятор 2026-09-28^). appop переживает перезагр
 "%ADB%" shell appops set --user 0 %INSTALLER_PKG% REQUEST_INSTALL_PACKAGES allow >nul 2>nul
 "%ADB%" shell appops set --user 10 %INSTALLER_PKG% REQUEST_INSTALL_PACKAGES allow >nul 2>nul
 
+rem Перевод интерфейса (служба спец.возможностей): после install -r система её не привязывает,
+rem приложение само прогоняет цикл "вычеркнуть -> вписать". Запоминаем, была ли служба включена, —
+rem только тогда после установки ждём привязки. Список служб скрипт сам не пишет: гонка с приложением.
+rem TRANSLATE=1 - только если в сборке включён перевод (BuildConfig.TRANSLATE в app/build.gradle);
+rem в 1.5.5 он выключен: служба выключена в манифесте, ждать её привязки нечего.
+set "TRANSLATE=0"
+set "TR_WAS_ON="
+if not "%TRANSLATE%"=="1" goto :tr_skip
+"%ADB%" shell "settings get secure enabled_accessibility_services | tr ':' '\n' | grep %PKG%/ | grep TranslateService" 2>nul | findstr /c:"TranslateService" >nul
+if not errorlevel 1 set "TR_WAS_ON=1"
+:tr_skip
+
 for %%a in ("%APK%") do echo -^> установка %%~nxa ^(~56 МБ вместе с моделью, по USB это до минуты^)
 "%ADB%" install -r -g "%APK%" >nul 2>nul
 if errorlevel 1 (
@@ -106,6 +118,27 @@ rem     SYSTEM_ALERT_WINDOW нужен плашке "слушаю": без не�
 call :grants ""
 call :grants "--user 0"
 call :grants "--user 10"
+
+rem Перевод интерфейса: ждём, пока приложение (по MY_PACKAGE_REPLACED, обычно 5-20 с) вернёт службу;
+rem не успело - сон/пробуждение экрана: приложение запомнит его, даже если цикл ещё идёт.
+rem Не вышло — сон/пробуждение экрана: по USER_PRESENT приложение повторит цикл.
+if defined TR_WAS_ON (
+  echo -^> перевод интерфейса: жду, пока система подключит службу...
+  call :trwait 25
+  if errorlevel 1 (
+    rem экран выкл, пауза, экран вкл: по USER_PRESENT приложение повторит цикл
+    "%ADB%" shell input keyevent 223 >nul 2>nul
+    ping -n 3 127.0.0.1 >nul
+    "%ADB%" shell input keyevent 224 >nul 2>nul
+    ping -n 2 127.0.0.1 >nul
+    call :trwait 20
+  )
+  if errorlevel 1 (
+    echo [^^!] Перевод интерфейса не подключился: открой Courage+ → Настройки → Перевод интерфейса
+  ) else (
+    echo [ok] Перевод интерфейса работает
+  )
+)
 
 for /f "tokens=*" %%u in ('"%ADB%" shell am get-current-user 2^>nul') do set "CU=%%u"
 echo.
@@ -136,3 +169,16 @@ rem MANAGE_EXTERNAL_STORAGE - "Магазин" и "Обновления" чит�
 rem без него общее хранилище приложению не видно вовсе.
 "%ADB%" shell appops set %~1 %PKG% MANAGE_EXTERNAL_STORAGE allow >nul 2>nul
 goto :eof
+
+rem Ждать привязки службы перевода до %1 секунд, опрос раз в 2 с; errorlevel 0 — привязана.
+rem Признак: подпись "Courage+" в блоке "Bound services" (до "Enabled services", где служба есть
+rem и непривязанной). Компонента там нет, только подпись; ServiceRecord живёт и у ждущей службы.
+:trwait
+set /a TR_LEFT=%~1
+:trwait_loop
+"%ADB%" shell "dumpsys accessibility | sed -n '/Enabled services/q;/Bound services/,$p'" 2>nul | findstr /c:"Courage+" >nul
+if not errorlevel 1 exit /b 0
+if !TR_LEFT! LEQ 0 exit /b 1
+ping -n 3 127.0.0.1 >nul
+set /a TR_LEFT-=2
+goto trwait_loop

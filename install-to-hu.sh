@@ -67,6 +67,35 @@ for U in "" "--user 0" "--user 10"; do
   "$ADB" shell appops set $U $INSTALLER_PKG REQUEST_INSTALL_PACKAGES allow >/dev/null 2>&1
 done
 
+# Перевод интерфейса (служба спец.возможностей): после install -r система её не привязывает,
+# приложение само прогоняет цикл «вычеркнуть → вписать». Запоминаем, была ли служба включена, —
+# только тогда после установки ждём привязки. Список служб скрипт сам не пишет: гонка с приложением.
+# TRANSLATE=1 — только если в сборке включён перевод (BuildConfig.TRANSLATE в app/build.gradle);
+# в 1.5.5 он выключен: служба выключена в манифесте, ждать её привязки нечего.
+TRANSLATE=0
+TR_WAS_ON=
+if [ "$TRANSLATE" = 1 ] && "$ADB" shell "settings get secure enabled_accessibility_services | tr ':' '\n' | grep $PKG/ | grep TranslateService" 2>/dev/null \
+    | grep -q TranslateService; then
+  TR_WAS_ON=1
+fi
+
+# Привязана ли служба: её подпись «Courage+ · …» в блоке «Bound services» (до «Enabled services»,
+# где она стоит и непривязанной). Компонента в блоке нет — только подпись (эмулятор 4.3.1,
+# 2026-10-02); ServiceRecord не годится — он живёт и у службы, ждущей перезапуска.
+tr_bound() {
+  "$ADB" shell "dumpsys accessibility | sed -n '/Enabled services/q;/Bound services/,\$p'" 2>/dev/null \
+    | grep -q "Courage+"
+}
+# Ждать привязки до $1 секунд, опрос раз в 2 с.
+tr_wait() {
+  local left=$1
+  while ! tr_bound; do
+    [ "$left" -le 0 ] && return 1
+    sleep 2
+    left=$((left - 2))
+  done
+}
+
 echo "-> установка $(basename "$APK") (~56 МБ вместе с моделью, по USB это до минуты)"
 if "$ADB" install -r -g "$APK" >/dev/null 2>&1; then
   echo "[ok] Установлено"
@@ -104,6 +133,24 @@ for U in "" "--user 0" "--user 10"; do
   # shellcheck disable=SC2086
   "$ADB" shell appops set $U $PKG MANAGE_EXTERNAL_STORAGE allow >/dev/null 2>&1
 done
+
+# Перевод интерфейса: ждём, пока приложение (по MY_PACKAGE_REPLACED, обычно 5-20 с) вернёт службу;
+# не успело - сон/пробуждение экрана: приложение запомнит его, даже если цикл ещё идёт.
+# Не вышло — сон/пробуждение экрана: по USER_PRESENT приложение повторит цикл.
+if [ -n "$TR_WAS_ON" ]; then
+  echo "-> перевод интерфейса: жду, пока система подключит службу..."
+  if tr_wait 25 || {
+    "$ADB" shell input keyevent 223 >/dev/null 2>&1   # экран выкл
+    sleep 2
+    "$ADB" shell input keyevent 224 >/dev/null 2>&1   # экран вкл → USER_PRESENT
+    sleep 1
+    tr_wait 20
+  }; then
+    echo "[ok] Перевод интерфейса работает"
+  else
+    echo "[!] Перевод интерфейса не подключился: открой Courage+ → Настройки → Перевод интерфейса"
+  fi
+fi
 
 CU=$("$ADB" shell am get-current-user 2>/dev/null | tr -d '\r')
 cat <<EOT
