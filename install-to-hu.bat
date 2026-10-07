@@ -122,7 +122,7 @@ exit /b 0
 :grants
 "%ADB%" shell appops set %~1 %PKG% SYSTEM_ALERT_WINDOW allow >nul 2>nul
 "%ADB%" shell pm grant %~1 %PKG% android.permission.RECORD_AUDIO >nul 2>nul
-rem READ_MEDIA_VIDEO - сторож сентри: ролик регистратора к тревоге ищется в MediaStore.
+rem READ_MEDIA_VIDEO - ролики видеорегистратора ищутся в MediaStore.
 "%ADB%" shell pm grant %~1 %PKG% android.permission.READ_MEDIA_VIDEO >nul 2>nul
 rem POST_NOTIFICATIONS - runtime-право с SDK 33: без него уведомления трёх foreground-сервисов
 rem (рулевой мост, ассистент, запись "Авто") не показываются, если установка прошла без -g.

@@ -85,7 +85,7 @@ for U in "" "--user 0" "--user 10"; do
   "$ADB" shell appops set $U $PKG SYSTEM_ALERT_WINDOW allow >/dev/null 2>&1
   # shellcheck disable=SC2086
   "$ADB" shell pm grant $U $PKG android.permission.RECORD_AUDIO >/dev/null 2>&1
-  # READ_MEDIA_VIDEO — сторож сентри: ролик регистратора к тревоге ищется в MediaStore.
+  # READ_MEDIA_VIDEO — ролики видеорегистратора ищутся в MediaStore.
   # shellcheck disable=SC2086
   "$ADB" shell pm grant $U $PKG android.permission.READ_MEDIA_VIDEO >/dev/null 2>&1
   # POST_NOTIFICATIONS — runtime-право с SDK 33: без него уведомления трёх foreground-сервисов
