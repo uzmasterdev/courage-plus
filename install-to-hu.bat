@@ -135,4 +135,7 @@ rem WRITE_SETTINGS - режим правого блока руля без пох
 rem MANAGE_EXTERNAL_STORAGE - "Магазин" и "Обновления" читают .apk из "Загрузок" и с флешки;
 rem без него общее хранилище приложению не видно вовсе.
 "%ADB%" shell appops set %~1 %PKG% MANAGE_EXTERNAL_STORAGE allow >nul 2>nul
+rem PROJECT_MEDIA - "Снимок экрана" тремя пальцами: запись экрана без системного диалога.
+rem Обновившиеся с экрана "Обновления" увидят диалог один раз на первом снимке после старта ГУ.
+"%ADB%" shell appops set %~1 %PKG% PROJECT_MEDIA allow >nul 2>nul
 goto :eof

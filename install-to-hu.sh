@@ -103,6 +103,10 @@ for U in "" "--user 0" "--user 10"; do
   # без него общее хранилище приложению не видно вовсе (эмулятор 2026-09-21).
   # shellcheck disable=SC2086
   "$ADB" shell appops set $U $PKG MANAGE_EXTERNAL_STORAGE allow >/dev/null 2>&1
+  # PROJECT_MEDIA — «Снимок экрана» тремя пальцами: запись экрана без системного диалога.
+  # Обновившиеся с экрана «Обновления» увидят диалог один раз на первом снимке после старта ГУ.
+  # shellcheck disable=SC2086
+  "$ADB" shell appops set $U $PKG PROJECT_MEDIA allow >/dev/null 2>&1
 done
 
 CU=$("$ADB" shell am get-current-user 2>/dev/null | tr -d '\r')
