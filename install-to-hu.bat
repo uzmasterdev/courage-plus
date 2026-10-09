@@ -106,6 +106,10 @@ rem     SYSTEM_ALERT_WINDOW нужен плашке "слушаю": без не�
 call :grants ""
 call :grants "--user 0"
 call :grants "--user 10"
+rem Доступ к уведомлениям - плееру "Двух экранов" и рулевому мосту (видеть медиаплееры).
+rem Номер Android-user здесь позиционный, без --user; на ГУ 0, на эмуляторе 10.
+"%ADB%" shell cmd notification allow_listener %PKG%/%PKG%.wheel.WheelNotificationListener 0 >nul 2>nul
+"%ADB%" shell cmd notification allow_listener %PKG%/%PKG%.wheel.WheelNotificationListener 10 >nul 2>nul
 
 for /f "tokens=*" %%u in ('"%ADB%" shell am get-current-user 2^>nul') do set "CU=%%u"
 echo.
@@ -116,7 +120,8 @@ echo      там же чеклист: "Модель распознавания" 
 echo   2) значок "Ассистент" — кнопка "Включить" ^(это тумблер сервиса^); первый запуск после
 echo      установки распаковывает модель — несколько секунд, статус на экране;
 echo      голос вызывается словом "Hi VOYAH" или кнопкой голосового помощника на руле;
-echo   3) для рулевого моста — выдать доступ к уведомлениям кнопкой на его экране.
+echo   3) доступ к уведомлениям ^(рулевой мост, плеер "Двух экранов"^) выдан установщиком; если нет -
+echo      кнопкой на экране рулевого моста.
 exit /b 0
 
 :grants
@@ -138,4 +143,6 @@ rem без него общее хранилище приложению не ви
 rem PROJECT_MEDIA - "Снимок экрана" тремя пальцами: запись экрана без системного диалога.
 rem Обновившиеся с экрана "Обновления" увидят диалог один раз на первом снимке после старта ГУ.
 "%ADB%" shell appops set %~1 %PKG% PROJECT_MEDIA allow >nul 2>nul
+rem GET_USAGE_STATS - "Два экрана": плеер прячется, когда окно Навигатора закрыли другим приложением.
+"%ADB%" shell appops set %~1 %PKG% GET_USAGE_STATS allow >nul 2>nul
 goto :eof
