@@ -106,6 +106,22 @@ rem     SYSTEM_ALERT_WINDOW нужен плашке "слушаю": без не�
 call :grants ""
 call :grants "--user 0"
 call :grants "--user 10"
+rem Доступ к уведомлениям - рулевому мосту (видеть медиаплееры).
+rem Номер Android-user здесь позиционный, без --user; на ГУ 0, на эмуляторе 10.
+"%ADB%" shell cmd notification allow_listener %PKG%/%PKG%.wheel.WheelNotificationListener 0 >nul 2>nul
+"%ADB%" shell cmd notification allow_listener %PKG%/%PKG%.wheel.WheelNotificationListener 10 >nul 2>nul
+rem Исключение из энергосбережения: фоновые сервисы (мост, запись "Авто", сторож сентри, "Два экрана")
+rem система не придушит; хранится по имени пакета, переживает обновления. Откат: dumpsys deviceidle whitelist -%PKG%
+"%ADB%" shell dumpsys deviceidle whitelist +%PKG% >nul 2>nul
+rem Доступ к "Не беспокоить" - запас для автоматизаций; user позиционный, как у allow_listener.
+"%ADB%" shell cmd notification allow_dnd %PKG% 0 >nul 2>nul
+"%ADB%" shell cmd notification allow_dnd %PKG% 10 >nul 2>nul
+
+rem Проверка главных прав: раньше все сбои глушились, теперь видно, что выдалось.
+rem Простые строки: adb на ПК, поиск findstr на ПК, без for /f и кавычек внутри shell.
+"%ADB%" shell dumpsys package %PKG% 2>nul | findstr /c:"RECORD_AUDIO: granted=true" >nul && echo [ok] Микрофон для ассистента || echo [^^!] Микрофон не выдан - запусти скрипт ещё раз
+"%ADB%" shell dumpsys package %PKG% 2>nul | findstr /c:"DUMP: granted=true" >nul && echo [ok] Доступ к разделению экрана || echo [^^!] Доступ к разделению экрана не выдан - запусти скрипт ещё раз
+"%ADB%" shell dumpsys package %PKG% 2>nul | findstr /c:"WRITE_SECURE_SETTINGS: granted=true" >nul && echo [ok] Системные настройки || echo [^^!] Системные настройки не выданы - запусти скрипт ещё раз
 
 for /f "tokens=*" %%u in ('"%ADB%" shell am get-current-user 2^>nul') do set "CU=%%u"
 echo.
@@ -116,7 +132,8 @@ echo      там же чеклист: "Модель распознавания" 
 echo   2) значок "Ассистент" — кнопка "Включить" ^(это тумблер сервиса^); первый запуск после
 echo      установки распаковывает модель — несколько секунд, статус на экране;
 echo      голос вызывается словом "Hi VOYAH" или кнопкой голосового помощника на руле;
-echo   3) для рулевого моста — выдать доступ к уведомлениям кнопкой на его экране.
+echo   3) доступ к уведомлениям ^(рулевой мост^) выдан установщиком; если нет -
+echo      кнопкой на экране рулевого моста.
 exit /b 0
 
 :grants
@@ -138,4 +155,36 @@ rem без него общее хранилище приложению не ви
 rem PROJECT_MEDIA - "Снимок экрана" тремя пальцами: запись экрана без системного диалога.
 rem Обновившиеся с экрана "Обновления" увидят диалог один раз на первом снимке после старта ГУ.
 "%ADB%" shell appops set %~1 %PKG% PROJECT_MEDIA allow >nul 2>nul
+rem GET_USAGE_STATS и DUMP - "Два экрана": команды разделения экрана и список задач (сервис дампа
+rem проверяет оба; DUMP - development-право, adb install -g его не выдает).
+"%ADB%" shell appops set %~1 %PKG% GET_USAGE_STATS allow >nul 2>nul
+"%ADB%" shell pm grant %~1 %PKG% android.permission.DUMP >nul 2>nul
+rem CAR_SPEED и CAR_ENERGY - запас: скорость, SOC и зарядка через Car API (2026-10-09); выдаем сейчас,
+rem чтобы будущей функции хватило обновления. На прошивке без этих прав строка молча отпадет.
+"%ADB%" shell pm grant %~1 %PKG% android.car.permission.CAR_SPEED >nul 2>nul
+"%ADB%" shell pm grant %~1 %PKG% android.car.permission.CAR_ENERGY >nul 2>nul
+rem CHANGE_CONFIGURATION - запас: язык отдельного приложения; кодом пока не используется.
+"%ADB%" shell pm grant %~1 %PKG% android.permission.CHANGE_CONFIGURATION >nul 2>nul
+rem ACCESS_RESTRICTED_SETTINGS - страховка ручного пути: доступ к уведомлениям и спец.возможности
+rem Courage+ можно включить в настройках Android без блокировки Android 13.
+"%ADB%" shell appops set %~1 %PKG% ACCESS_RESTRICTED_SETTINGS allow >nul 2>nul
+rem appwidget grantbind - запас под свой лаунчер: встраивать чужие виджеты без системного диалога.
+"%ADB%" shell appwidget grantbind --package %PKG% %~1 >nul 2>nul
+rem Запас под лаунчер и будущие функции (2026-10-12). Только простые строки: без скобок, пайпов и
+rem восклицательных знаков - сложная логика уже ломала этот скрипт у клиентов.
+rem Не отзывать права у давно не открытого приложения.
+"%ADB%" shell appops set %~1 %PKG% AUTO_REVOKE_PERMISSIONS_IF_UNUSED ignore >nul 2>nul
+rem Медиаклавиши и долгое нажатие громкости.
+"%ADB%" shell pm grant %~1 %PKG% android.permission.SET_MEDIA_KEY_LISTENER >nul 2>nul
+"%ADB%" shell pm grant %~1 %PKG% android.permission.SET_VOLUME_KEY_LONG_PRESS_LISTENER >nul 2>nul
+rem Самодиагностика прав.
+"%ADB%" shell pm grant %~1 %PKG% android.permission.GET_APP_OPS_STATS >nul 2>nul
+rem Голосовой набор и телефон: контакты, звонки, журнал вызовов.
+"%ADB%" shell pm grant %~1 %PKG% android.permission.READ_CONTACTS >nul 2>nul
+"%ADB%" shell pm grant %~1 %PKG% android.permission.CALL_PHONE >nul 2>nul
+"%ADB%" shell pm grant %~1 %PKG% android.permission.ANSWER_PHONE_CALLS >nul 2>nul
+"%ADB%" shell pm grant %~1 %PKG% android.permission.READ_CALL_LOG >nul 2>nul
+"%ADB%" shell pm grant %~1 %PKG% android.permission.CAMERA >nul 2>nul
+rem VPN без системного диалога.
+"%ADB%" shell appops set %~1 %PKG% ACTIVATE_VPN allow >nul 2>nul
 goto :eof
