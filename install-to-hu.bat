@@ -163,7 +163,7 @@ rem CAR_SPEED и CAR_ENERGY - запас: скорость, SOC и зарядк�
 rem чтобы будущей функции хватило обновления. На прошивке без этих прав строка молча отпадет.
 "%ADB%" shell pm grant %~1 %PKG% android.car.permission.CAR_SPEED >nul 2>nul
 "%ADB%" shell pm grant %~1 %PKG% android.car.permission.CAR_ENERGY >nul 2>nul
-rem CHANGE_CONFIGURATION - запас: язык отдельного приложения; кодом пока не используется.
+rem CHANGE_CONFIGURATION - "Масштаб интерфейса" (плотность экрана в Параметрах); язык системы не трогаем.
 "%ADB%" shell pm grant %~1 %PKG% android.permission.CHANGE_CONFIGURATION >nul 2>nul
 rem ACCESS_RESTRICTED_SETTINGS - страховка ручного пути: доступ к уведомлениям и спец.возможности
 rem Courage+ можно включить в настройках Android без блокировки Android 13.

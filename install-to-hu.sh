@@ -119,7 +119,7 @@ for U in "" "--user 0" "--user 10"; do
   "$ADB" shell pm grant $U $PKG android.car.permission.CAR_SPEED >/dev/null 2>&1
   # shellcheck disable=SC2086
   "$ADB" shell pm grant $U $PKG android.car.permission.CAR_ENERGY >/dev/null 2>&1
-  # CHANGE_CONFIGURATION — запас: язык отдельного приложения; кодом пока не используется.
+  # CHANGE_CONFIGURATION — «Масштаб интерфейса» (плотность экрана в «Параметрах»); язык системы не трогаем.
   # shellcheck disable=SC2086
   "$ADB" shell pm grant $U $PKG android.permission.CHANGE_CONFIGURATION >/dev/null 2>&1
   # ACCESS_RESTRICTED_SETTINGS — страховка ручного пути: доступ к уведомлениям и спец.возможности
