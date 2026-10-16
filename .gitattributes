@@ -1,0 +1,10 @@
+# install-to-hu.bat — всегда CRLF: с LF cmd выходит молча, не напечатав ни строки.
+# Хранится байт в байт (-text), а не через eol=crlf: «Download ZIP» и raw-ссылки GitHub отдают
+# содержимое blob без преобразований, и только так CRLF доезжает до Windows любым путём.
+*.bat -text
+*.sh text eol=lf
+
+# Бинарники — байт в байт.
+*.apk binary
+*.exe binary
+*.dll binary

@@ -1,0 +1,183 @@
+#!/usr/bin/env bash
+# Установка Courage+ 1.0 на ГУ VOYAH Courage (岚图知音) через ADB — macOS/Linux.
+# Ставит один APK: модель распознавания едет внутри него и распаковывается при первом запуске
+# сервиса (несколько секунд, статус «распаковываю модель из APK» на экране ассистента).
+# Отдельных заливок моделей больше нет — на машине они дважды срывались (docs/results/20260903/).
+# Рядом в adb/ лежит mega-installer.apk — отдельный установщик приложений (com.mega.appstore):
+# без него «Магазин» и «Обновления» Courage+ ничего поставить не могут. Скрипт ставит его, если
+# на ГУ такого пакета нет или его versionCode ниже INSTALLER_MIN_CODE (тогда ставит поверх);
+# свежий не трогает. Право REQUEST_INSTALL_PACKAGES выдаёт ему при каждом запуске.
+#
+# adb берётся из PATH (бандл adb/win/adb.exe — только под Windows).
+# Подготовка: включить USB Debugging (инженерное меню), кабель USB-A—USB-A,
+# подтвердить отладку на экране авто.
+# Использование: ./install-to-hu.sh [путь/к.apk]   (по умолчанию Courage-Plus.apk рядом)
+set -u
+DIR="$(cd "$(dirname "$0")" && pwd)"
+ADB="${ADB:-adb}"
+APK="${1:-$DIR/Courage-Plus.apk}"
+PKG=dev.uzmaster.ucinjector
+INSTALLER_PKG=com.mega.appstore
+INSTALLER_APK="$DIR/adb/mega-installer.apk"
+INSTALLER_MIN_CODE=3
+
+[ -f "$APK" ] || { echo "[x] Нет файла: $APK"; exit 1; }
+command -v "$ADB" >/dev/null 2>&1 || {
+  echo "[x] adb не найден в PATH. Поставь platform-tools (brew install android-platform-tools)"
+  echo "    или укажи путь: ADB=/path/to/adb ./install-to-hu.sh"
+  exit 1
+}
+
+echo "Ожидание ГУ (подтверди отладку на экране авто)..."
+"$ADB" wait-for-device
+STATE=$("$ADB" get-state 2>/dev/null | tr -d '\r')
+[ "$STATE" = "device" ] || { echo "[x] ГУ не готово (состояние: $STATE). Проверь кабель/порт и USB Debugging."; exit 1; }
+echo "[ok] ГУ подключено."
+
+# OEM-блокировка установки — частая причина "App not installed"
+"$ADB" shell setprop sys.config.app_install_disabled false >/dev/null 2>&1
+
+# Установщик приложений для «Магазина» и «Обновлений»: ставится, если его нет или он старее
+# INSTALLER_MIN_CODE (1.2 = 3: принимает файлы только от Courage+; 1.1 ставил от любого приложения).
+# Свежий или новее — не трогаем.
+INSTALLER_PATH=$("$ADB" shell pm path $INSTALLER_PKG 2>/dev/null | tr -d '\r')
+INSTALLER_CODE=$("$ADB" shell dumpsys package $INSTALLER_PKG 2>/dev/null | tr -d '\r' \
+  | sed -n 's/.*versionCode=\([0-9][0-9]*\).*/\1/p' | head -1)
+if [ -n "$INSTALLER_PATH" ] && [ "${INSTALLER_CODE:-0}" -ge "$INSTALLER_MIN_CODE" ]; then
+  echo "[ok] Установщик приложений уже стоит"
+elif [ -f "$INSTALLER_APK" ]; then
+  if [ -n "$INSTALLER_PATH" ]; then
+    echo "-> обновление установщика приложений (стоит версия ${INSTALLER_CODE:-?}, нужна $INSTALLER_MIN_CODE)"
+  else
+    echo "-> установка установщика приложений ($(basename "$INSTALLER_APK"))"
+  fi
+  if "$ADB" install -r "$INSTALLER_APK" >/dev/null 2>&1; then
+    echo "[ok] Установщик приложений установлен"
+  else
+    echo "[!] Установщик приложений не установился — «Магазин» и «Обновления» в Courage+ ставить не смогут."
+    echo "    Повтори с выводом: $ADB install -r \"$INSTALLER_APK\""
+  fi
+else
+  echo "[!] Рядом нет adb/mega-installer.apk — «Магазин» и «Обновления» в Courage+ ставить не смогут."
+fi
+# Право установщика ставить приложения: без него система отвечает «For your security…»
+# (эмулятор 2026-09-28). appop переживает перезагрузку; лишние --user молча отпадают.
+for U in "" "--user 0" "--user 10"; do
+  # shellcheck disable=SC2086
+  "$ADB" shell appops set $U $INSTALLER_PKG REQUEST_INSTALL_PACKAGES allow >/dev/null 2>&1
+done
+
+echo "-> установка $(basename "$APK") (~56 МБ вместе с моделью, по USB это до минуты)"
+if "$ADB" install -r -g "$APK" >/dev/null 2>&1; then
+  echo "[ok] Установлено"
+elif "$ADB" install -r "$APK" >/dev/null 2>&1; then
+  echo "[ok] Установлено (без -g, права выдать вручную)"
+else
+  echo "[x] Установка не прошла. Повтори с выводом: $ADB install -r \"$APK\""
+  exit 1
+fi
+
+# Права. Android-user на ГУ обычно 0 (Driver), на AAOS-эмуляторе 10 —
+# выдаём и без --user, и на оба id; лишние вызовы молча отпадают.
+# SYSTEM_ALERT_WINDOW нужен плашке «слушаю»: без него вне экрана ассистент не услышит.
+for U in "" "--user 0" "--user 10"; do
+  # shellcheck disable=SC2086
+  "$ADB" shell appops set $U $PKG SYSTEM_ALERT_WINDOW allow >/dev/null 2>&1
+  # shellcheck disable=SC2086
+  "$ADB" shell pm grant $U $PKG android.permission.RECORD_AUDIO >/dev/null 2>&1
+  # READ_MEDIA_VIDEO — ролики видеорегистратора ищутся в MediaStore.
+  # shellcheck disable=SC2086
+  "$ADB" shell pm grant $U $PKG android.permission.READ_MEDIA_VIDEO >/dev/null 2>&1
+  # POST_NOTIFICATIONS — runtime-право с SDK 33: без него уведомления трёх foreground-сервисов
+  # (рулевой мост, ассистент, запись «Авто») не показываются, если установка прошла без -g.
+  # shellcheck disable=SC2086
+  "$ADB" shell pm grant $U $PKG android.permission.POST_NOTIFICATIONS >/dev/null 2>&1
+  # WRITE_SECURE_SETTINGS — активация («① Подтвердить») и вычёркивание старой службы микрофона:
+  # adb install -g development-права не выдаёт, без явного grant активация упирается в стену.
+  # shellcheck disable=SC2086
+  "$ADB" shell pm grant $U $PKG android.permission.WRITE_SECURE_SETTINGS >/dev/null 2>&1
+  # WRITE_SETTINGS — режим правого блока руля без похода в системный экран.
+  # shellcheck disable=SC2086
+  "$ADB" shell appops set $U $PKG WRITE_SETTINGS allow >/dev/null 2>&1
+  # MANAGE_EXTERNAL_STORAGE — «Магазин» и «Обновления» читают .apk из «Загрузок» и с флешки;
+  # без него общее хранилище приложению не видно вовсе (эмулятор 2026-09-21).
+  # shellcheck disable=SC2086
+  "$ADB" shell appops set $U $PKG MANAGE_EXTERNAL_STORAGE allow >/dev/null 2>&1
+  # PROJECT_MEDIA — «Снимок экрана» тремя пальцами: запись экрана без системного диалога.
+  # Обновившиеся с экрана «Обновления» увидят диалог один раз на первом снимке после старта ГУ.
+  # shellcheck disable=SC2086
+  "$ADB" shell appops set $U $PKG PROJECT_MEDIA allow >/dev/null 2>&1
+  # GET_USAGE_STATS и DUMP — «Два экрана»: команды разделения экрана и список задач (сервис дампа
+  # проверяет оба; DUMP — development-право, adb install -g его не выдаёт).
+  # shellcheck disable=SC2086
+  "$ADB" shell appops set $U $PKG GET_USAGE_STATS allow >/dev/null 2>&1
+  # shellcheck disable=SC2086
+  "$ADB" shell pm grant $U $PKG android.permission.DUMP >/dev/null 2>&1
+  # CAR_SPEED и CAR_ENERGY — запас: скорость, SOC и зарядка через Car API (2026-10-09). Выдаём сейчас,
+  # чтобы будущей функции хватило обновления; на прошивке без этих прав строка молча отпадёт.
+  # shellcheck disable=SC2086
+  "$ADB" shell pm grant $U $PKG android.car.permission.CAR_SPEED >/dev/null 2>&1
+  # shellcheck disable=SC2086
+  "$ADB" shell pm grant $U $PKG android.car.permission.CAR_ENERGY >/dev/null 2>&1
+  # CHANGE_CONFIGURATION — «Масштаб интерфейса» (плотность экрана в «Параметрах»); язык системы не трогаем.
+  # shellcheck disable=SC2086
+  "$ADB" shell pm grant $U $PKG android.permission.CHANGE_CONFIGURATION >/dev/null 2>&1
+  # ACCESS_RESTRICTED_SETTINGS — страховка ручного пути: доступ к уведомлениям и спец.возможности
+  # Courage+ можно включить в настройках Android без блокировки Android 13 для сторонних приложений.
+  # shellcheck disable=SC2086
+  "$ADB" shell appops set $U $PKG ACCESS_RESTRICTED_SETTINGS allow >/dev/null 2>&1
+  # appwidget grantbind — запас под свой лаунчер: встраивать чужие виджеты без системного диалога на
+  # каждый (BIND_APPWIDGET — signature, приложению закрыт). Хранится по имени пакета.
+  # shellcheck disable=SC2086
+  "$ADB" shell appwidget grantbind --package $PKG $U >/dev/null 2>&1
+  # Запас под лаунчер и будущие функции (2026-10-12): не отзывать права у давно не открытого
+  # приложения; медиаклавиши и долгая громкость; самодиагностика прав; голосовой набор и телефон;
+  # камера; VPN без системного диалога. Кодом пока не используются.
+  # shellcheck disable=SC2086
+  "$ADB" shell appops set $U $PKG AUTO_REVOKE_PERMISSIONS_IF_UNUSED ignore >/dev/null 2>&1
+  for P in SET_MEDIA_KEY_LISTENER SET_VOLUME_KEY_LONG_PRESS_LISTENER GET_APP_OPS_STATS \
+           READ_CONTACTS CALL_PHONE ANSWER_PHONE_CALLS READ_CALL_LOG CAMERA; do
+    # shellcheck disable=SC2086
+    "$ADB" shell pm grant $U $PKG android.permission.$P >/dev/null 2>&1
+  done
+  # shellcheck disable=SC2086
+  "$ADB" shell appops set $U $PKG ACTIVATE_VPN allow >/dev/null 2>&1
+done
+# Исключение из энергосбережения: фоновые сервисы (мост, запись «Авто», сторож сентри, «Два экрана» по
+# передаче) система не придушит, запуск из фона не упрётся в ограничения Android 12+. Хранится по имени
+# пакета, переживает обновления; откат — dumpsys deviceidle whitelist -dev.uzmaster.ucinjector.
+"$ADB" shell dumpsys deviceidle whitelist +$PKG >/dev/null 2>&1
+# Доступ к уведомлениям — рулевому мосту (видеть медиаплееры). Номер
+# Android-user здесь — позиционный, без --user; на ГУ 0, на эмуляторе 10, лишний молча отпадёт.
+for UID_ in 0 10; do
+  "$ADB" shell cmd notification allow_listener $PKG/$PKG.wheel.WheelNotificationListener $UID_ >/dev/null 2>&1
+  # Доступ к «Не беспокоить» — запас для автоматизаций.
+  "$ADB" shell cmd notification allow_dnd $PKG $UID_ >/dev/null 2>&1
+done
+
+# Проверка главных прав: раньше все сбои глушились, теперь видно, что выдалось.
+PERMS_DUMP=$("$ADB" shell dumpsys package $PKG 2>/dev/null || true)
+check_perm() {
+  if printf '%s' "$PERMS_DUMP" | grep -q "$1: granted=true"; then
+    echo "[ok] $2"
+  else
+    echo "[!] $2 — не выдано, запусти скрипт ещё раз"
+  fi
+}
+check_perm RECORD_AUDIO "Микрофон для ассистента"
+check_perm android.permission.DUMP "Доступ к разделению экрана"
+check_perm WRITE_SECURE_SETTINGS "Системные настройки"
+
+CU=$("$ADB" shell am get-current-user 2>/dev/null | tr -d '\r')
+cat <<EOT
+
+Текущий Android-user на ГУ: ${CU:-неизвестен}
+Готово. Дальше на экране авто:
+  1) открыть Courage+ (значок в списке приложений); на замке — код машины отправить автору,
+     там же чеклист: «Модель распознавания» — ✅ (в составе APK);
+  2) значок 🎙 «Ассистент» — кнопка «Включить» (это тумблер сервиса); первый запуск после
+     установки распаковывает модель — несколько секунд, статус на экране;
+     голос вызывается словом «Hi VOYAH» или кнопкой голосового помощника на руле;
+  3) доступ к уведомлениям (рулевой мост) выдан установщиком; если нет —
+     кнопкой на экране рулевого моста.
+EOT
