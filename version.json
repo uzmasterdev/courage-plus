@@ -1,12 +1,12 @@
 {
   "package": "dev.uzmaster.ucinjector",
-  "versionCode": 2006,
-  "versionName": "2.0.6",
+  "versionCode": 2100,
+  "versionName": "2.1.0",
   "apk": "Courage-Plus.apk",
-  "size": 57444308,
-  "sha256": "f72596af004f198c2a0abf1d81fb4f00ab2e653fd57e21fa52ac04f724cbe492",
+  "size": 57513584,
+  "sha256": "9689c28cf0ce972712ac5d0186ec9bcc384f6312aa6083ae1e3cb1ff9b4b41de",
   "update_apk": "Courage-Plus-update.apk",
-  "update_size": 11223169,
-  "update_sha256": "c1564d6720d107dc461c0ef01efe2ef5c0c76887d57ea6c311090eefc77f6dc8",
-  "built": "2026-10-20T11:44:50Z"
+  "update_size": 11292449,
+  "update_sha256": "ddb06aeceb3fb28a8c98e877b90f4fa4fc08526714b4ed6c2b30e442194ec67d",
+  "built": "2026-10-20T16:03:33Z"
 }
