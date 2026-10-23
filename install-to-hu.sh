@@ -19,7 +19,7 @@ APK="${1:-$DIR/Courage-Plus.apk}"
 PKG=dev.uzmaster.ucinjector
 INSTALLER_PKG=com.mega.appstore
 INSTALLER_APK="$DIR/adb/mega-installer.apk"
-INSTALLER_MIN_CODE=3
+INSTALLER_MIN_CODE=4
 
 [ -f "$APK" ] || { echo "[x] Нет файла: $APK"; exit 1; }
 command -v "$ADB" >/dev/null 2>&1 || {
@@ -38,7 +38,8 @@ echo "[ok] ГУ подключено."
 "$ADB" shell setprop sys.config.app_install_disabled false >/dev/null 2>&1
 
 # Установщик приложений для «Магазина» и «Обновлений»: ставится, если его нет или он старее
-# INSTALLER_MIN_CODE (1.2 = 3: принимает файлы только от Courage+; 1.1 ставил от любого приложения).
+# INSTALLER_MIN_CODE (1.3 = 4: тихое обновление Courage+; 1.2 = 3: принимает файлы только от Courage+;
+# 1.1 ставил от любого приложения).
 # Свежий или новее — не трогаем.
 INSTALLER_PATH=$("$ADB" shell pm path $INSTALLER_PKG 2>/dev/null | tr -d '\r')
 INSTALLER_CODE=$("$ADB" shell dumpsys package $INSTALLER_PKG 2>/dev/null | tr -d '\r' \
@@ -68,7 +69,11 @@ for U in "" "--user 0" "--user 10"; do
 done
 
 echo "-> установка $(basename "$APK") (~56 МБ вместе с моделью, по USB это до минуты)"
-if "$ADB" install -r -g "$APK" >/dev/null 2>&1; then
+# Сначала — с установщиком com.mega.appstore как источником установки: тогда автообновление ставит
+# новые версии без подтверждения уже с первого раза. Не вышло — как раньше.
+if "$ADB" install -r -g -i $INSTALLER_PKG "$APK" >/dev/null 2>&1; then
+  echo "[ok] Установлено"
+elif "$ADB" install -r -g "$APK" >/dev/null 2>&1; then
   echo "[ok] Установлено"
 elif "$ADB" install -r "$APK" >/dev/null 2>&1; then
   echo "[ok] Установлено (без -g, права выдать вручную)"
