@@ -22,7 +22,7 @@ set "DIR=%~dp0"
 set "PKG=dev.uzmaster.ucinjector"
 set "INSTALLER_PKG=com.mega.appstore"
 set "INSTALLER_APK=%DIR%adb\mega-installer.apk"
-set "INSTALLER_MIN_CODE=4"
+set "INSTALLER_MIN_CODE=5"
 
 rem adb: портативный рядом (adb\win\adb.exe), иначе из PATH.
 set "ADB=%DIR%adb\win\adb.exe"
@@ -54,7 +54,7 @@ rem OEM-блокировка установки — частая причина 
 "%ADB%" shell setprop sys.config.app_install_disabled false >nul 2>nul
 
 rem Установщик приложений для "Магазина" и "Обновлений": ставится, если его нет или он старее
-rem INSTALLER_MIN_CODE ^(1.3 = 4: тихое обновление Courage+; 1.2 = 3: только от Courage+; 1.1 ставил от любого^).
+rem INSTALLER_MIN_CODE ^(1.4 = 5: обновляет и себя; 1.3 = 4: тихое обновление Courage+; 1.2 = 3: только от Courage+; 1.1 ставил от любого^).
 set "INSTALLER_PATH="
 for /f "tokens=*" %%p in ('"%ADB%" shell pm path %INSTALLER_PKG% 2^>nul') do set "INSTALLER_PATH=%%p"
 set "INSTALLER_CODE=0"
