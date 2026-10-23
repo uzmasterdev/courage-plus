@@ -22,7 +22,7 @@ set "DIR=%~dp0"
 set "PKG=dev.uzmaster.ucinjector"
 set "INSTALLER_PKG=com.mega.appstore"
 set "INSTALLER_APK=%DIR%adb\mega-installer.apk"
-set "INSTALLER_MIN_CODE=3"
+set "INSTALLER_MIN_CODE=4"
 
 rem adb: портативный рядом (adb\win\adb.exe), иначе из PATH.
 set "ADB=%DIR%adb\win\adb.exe"
@@ -54,7 +54,7 @@ rem OEM-блокировка установки — частая причина 
 "%ADB%" shell setprop sys.config.app_install_disabled false >nul 2>nul
 
 rem Установщик приложений для "Магазина" и "Обновлений": ставится, если его нет или он старее
-rem INSTALLER_MIN_CODE ^(1.2 = 3: принимает файлы только от Courage+; 1.1 ставил от любого^).
+rem INSTALLER_MIN_CODE ^(1.3 = 4: тихое обновление Courage+; 1.2 = 3: только от Courage+; 1.1 ставил от любого^).
 set "INSTALLER_PATH="
 for /f "tokens=*" %%p in ('"%ADB%" shell pm path %INSTALLER_PKG% 2^>nul') do set "INSTALLER_PATH=%%p"
 set "INSTALLER_CODE=0"
@@ -87,6 +87,9 @@ rem ^(эмулятор 2026-09-28^). appop переживает перезагр
 "%ADB%" shell appops set --user 10 %INSTALLER_PKG% REQUEST_INSTALL_PACKAGES allow >nul 2>nul
 
 for %%a in ("%APK%") do echo -^> установка %%~nxa ^(~56 МБ вместе с моделью, по USB это до минуты^)
+rem Сначала - с установщиком как источником установки: автообновление тогда ставит без подтверждения.
+"%ADB%" install -r -g -i %INSTALLER_PKG% "%APK%" >nul 2>nul
+if not errorlevel 1 goto courage_installed
 "%ADB%" install -r -g "%APK%" >nul 2>nul
 if errorlevel 1 (
   "%ADB%" install -r "%APK%" >nul 2>nul
@@ -99,6 +102,10 @@ if errorlevel 1 (
 ) else (
   echo [ok] Установлено
 )
+goto courage_done
+:courage_installed
+echo [ok] Установлено
+:courage_done
 
 rem --- права. Android-user на ГУ обычно 0 (Driver), на AAOS-эмуляторе 10 —
 rem     поэтому выдаём и без --user, и на оба id; лишние вызовы молча отпадают.
