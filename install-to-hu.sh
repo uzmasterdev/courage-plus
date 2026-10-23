@@ -19,7 +19,7 @@ APK="${1:-$DIR/Courage-Plus.apk}"
 PKG=dev.uzmaster.ucinjector
 INSTALLER_PKG=com.mega.appstore
 INSTALLER_APK="$DIR/adb/mega-installer.apk"
-INSTALLER_MIN_CODE=4
+INSTALLER_MIN_CODE=5
 
 [ -f "$APK" ] || { echo "[x] Нет файла: $APK"; exit 1; }
 command -v "$ADB" >/dev/null 2>&1 || {
@@ -38,7 +38,7 @@ echo "[ok] ГУ подключено."
 "$ADB" shell setprop sys.config.app_install_disabled false >/dev/null 2>&1
 
 # Установщик приложений для «Магазина» и «Обновлений»: ставится, если его нет или он старее
-# INSTALLER_MIN_CODE (1.3 = 4: тихое обновление Courage+; 1.2 = 3: принимает файлы только от Courage+;
+# INSTALLER_MIN_CODE (1.4 = 5: обновляет и себя; 1.3 = 4: тихое обновление Courage+; 1.2 = 3: принимает файлы только от Courage+;
 # 1.1 ставил от любого приложения).
 # Свежий или новее — не трогаем.
 INSTALLER_PATH=$("$ADB" shell pm path $INSTALLER_PKG 2>/dev/null | tr -d '\r')
