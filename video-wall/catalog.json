@@ -1,0 +1,205 @@
+{
+ "version": 1,
+ "clips": [
+  {
+   "id": "view-of-the-lake",
+   "title": "View of the lake",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/01-view-of-the-lake.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/01-view-of-the-lake.jpg",
+   "bytes": 7869878,
+   "sha256": "694ec0bd72760f764f878ceeff6cb2ed8fdc30607c5ea10eafb45560e1ba82b2",
+   "seconds": 9.5,
+   "credit": "Video on Coverr"
+  },
+  {
+   "id": "misty-mountains",
+   "title": "Misty mountains",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/03-misty-mountains.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/03-misty-mountains.jpg",
+   "bytes": 9083390,
+   "sha256": "aa5badfdb53103c579c90b5f68fd828516f50ed5ea0dadf9f315ceae61a85299",
+   "seconds": 25.7,
+   "credit": "Video on Coverr"
+  },
+  {
+   "id": "a-view-of-the-lake",
+   "title": "A view of the lake",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/07-a-view-of-the-lake.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/07-a-view-of-the-lake.jpg",
+   "bytes": 3570091,
+   "sha256": "9809b7f753ddf7f2c50cb3abfe038e5b4f50ba6acb677d39f95ee8000447729d",
+   "seconds": 10.4,
+   "credit": "Video on Coverr"
+  },
+  {
+   "id": "waves-crashing-together",
+   "title": "Waves crashing together",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/10-waves-crashing-together.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/10-waves-crashing-together.jpg",
+   "bytes": 10641944,
+   "sha256": "f06079660400a2a344f2aa6e894993ced91551910efaa78467fdb491e1242a79",
+   "seconds": 9.0,
+   "credit": "Video on Coverr"
+  },
+  {
+   "id": "woods-covered-by-fog",
+   "title": "Woods covered by fog",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/12-woods-covered-by-fog.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/12-woods-covered-by-fog.jpg",
+   "bytes": 4504583,
+   "sha256": "841bdaccd0e367600fab760e0eef9033f273f341d4f772edff5128501b4ff35d",
+   "seconds": 13.8,
+   "credit": "Video on Coverr"
+  },
+  {
+   "id": "sunset-on-the-beach",
+   "title": "Sunset on the beach",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/14-sunset-on-the-beach.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/14-sunset-on-the-beach.jpg",
+   "bytes": 5018182,
+   "sha256": "b41932d0513d013336c15afe22b9be16c4cc799134b492754a00e3c4dfdaa9dc",
+   "seconds": 9.2,
+   "credit": "Video on Coverr"
+  },
+  {
+   "id": "waves-in-the-ocean",
+   "title": "Waves in the ocean",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/17-waves-in-the-ocean.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/17-waves-in-the-ocean.jpg",
+   "bytes": 17607219,
+   "sha256": "92491aec39d2375e7e4036adc17b4dde2caa73c3cda31c88f2b64804419a3f67",
+   "seconds": 14.2,
+   "credit": "Video on Coverr"
+  },
+  {
+   "id": "ocean-waves",
+   "title": "Ocean waves",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/20-ocean-waves.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/20-ocean-waves.jpg",
+   "bytes": 28104903,
+   "sha256": "6ab7b395bbf97941a8da49a0e00fbcf8251d1ad43585b839179be18ae5a418be",
+   "seconds": 25.7,
+   "credit": "Video on Coverr"
+  },
+  {
+   "id": "forest-covered-by-a-thick-fog",
+   "title": "Forest covered by a thick fog",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/21-forest-covered-by-a-thick-fog.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/21-forest-covered-by-a-thick-fog.jpg",
+   "bytes": 2941243,
+   "sha256": "7d63944a125d9c281fed41f0bbcfcce9959841bcea2d251e26ca2402bf40f697",
+   "seconds": 11.4,
+   "credit": "Video on Coverr"
+  },
+  {
+   "id": "waterfall-in-the-mountains",
+   "title": "Waterfall in the mountains",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/31-waterfall-in-the-mountains.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/31-waterfall-in-the-mountains.jpg",
+   "bytes": 7687708,
+   "sha256": "29556d5b6af979e71d892801342e977ced8e96576c4df0566bb61938aa47e2ea",
+   "seconds": 10.5,
+   "credit": "Video on Coverr"
+  },
+  {
+   "id": "a-view-of-a-river",
+   "title": "A view of a river",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/32-a-view-of-a-river.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/32-a-view-of-a-river.jpg",
+   "bytes": 15814990,
+   "sha256": "73843e53530459bf7a7789b9ce77e553eb456344e03d2b32eea2f95dd038ff08",
+   "seconds": 10.3,
+   "credit": "Video on Coverr"
+  },
+  {
+   "id": "cloudy-sky",
+   "title": "Cloudy sky",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/33-cloudy-sky.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/33-cloudy-sky.jpg",
+   "bytes": 6092717,
+   "sha256": "8cb8b2673e4d2c8c5b68f28149e7b05ecaf206d191d2cd0474a3db4ded7b29dc",
+   "seconds": 16.5,
+   "credit": "Video on Coverr"
+  },
+  {
+   "id": "snow-falling-onto-a-puddle-of-water",
+   "title": "Snow falling onto a puddle of water",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/35-snow-falling-onto-a-puddle-of-water.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/35-snow-falling-onto-a-puddle-of-water.jpg",
+   "bytes": 9973976,
+   "sha256": "15b902f2e827b4f2b082121827ac76dca4d9790d8ee0d3e96912966245ae61a8",
+   "seconds": 13.8,
+   "credit": "Video on Coverr"
+  },
+  {
+   "id": "timelapse-of-clouds",
+   "title": "Timelapse of clouds",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/43-timelapse-of-clouds.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/43-timelapse-of-clouds.jpg",
+   "bytes": 7895254,
+   "sha256": "aff878ff251179619bdfac35aff0c4708913336e2fb09fe36901cd383b7af7d8",
+   "seconds": 13.3,
+   "credit": "Video on Coverr"
+  },
+  {
+   "id": "above-a-misty-forest",
+   "title": "Above a misty forest",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/45-above-a-misty-forest.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/45-above-a-misty-forest.jpg",
+   "bytes": 6159927,
+   "sha256": "4e0e4f86c30177cf4e30262a13f450373e0347b00151eab512fffcbfe33cde02",
+   "seconds": 15.0,
+   "credit": "Video on Coverr"
+  },
+  {
+   "id": "steam-from-the-hot-springs",
+   "title": "Steam from the hot springs",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/47-steam-from-the-hot-springs.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/47-steam-from-the-hot-springs.jpg",
+   "bytes": 7133694,
+   "sha256": "93761347b2ea0aea31117be4d317ac740166372a6c876d81fbccbf9e63a25426",
+   "seconds": 10.2,
+   "credit": "Video on Coverr"
+  },
+  {
+   "id": "velvet",
+   "title": "Бархат",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/51-velvet.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/51-velvet.jpg",
+   "bytes": 4760519,
+   "sha256": "fe079b008dc07684fd37311b79becbbcc7da7c330365b26de9d244130f710122",
+   "seconds": 12.0,
+   "credit": "Courage+"
+  },
+  {
+   "id": "gradient",
+   "title": "Синий градиент",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/52-gradient.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/52-gradient.jpg",
+   "bytes": 5543023,
+   "sha256": "cb4e0679f39e570ef246690350e6aa2aa9431b4582560f82daa8b3f240294cad",
+   "seconds": 12.0,
+   "credit": "Courage+"
+  },
+  {
+   "id": "rings",
+   "title": "Кольца",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/53-rings.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/53-rings.jpg",
+   "bytes": 5598967,
+   "sha256": "02044b500be264eda882d5f9d6403065d8519f3150b448b8104cd29ea10e8ab2",
+   "seconds": 12.0,
+   "credit": "Courage+"
+  },
+  {
+   "id": "neon",
+   "title": "Неон",
+   "url": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/54-neon.mp4",
+   "thumb": "https://raw.githubusercontent.com/uzmasterdev/courage-plus/video-wall/video-wall/54-neon.jpg",
+   "bytes": 8345450,
+   "sha256": "a6192768b9104c180da9f375f6b556dc8d3dba5e0455ab03b7be7c9042cf075f",
+   "seconds": 12.0,
+   "credit": "Courage+"
+  }
+ ]
+}

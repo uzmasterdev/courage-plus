@@ -1,0 +1,206 @@
+[
+ {
+  "file": "01-view-of-the-lake.mp4",
+  "title": "View of the lake",
+  "coverr_id": "1MH6B3AyqL",
+  "base_filename": "coverr-view-of-the-lake-9592",
+  "contributor_id": null,
+  "duration_s": 9.5,
+  "size_mb": 7.9,
+  "status": "clean"
+ },
+ {
+  "file": "03-misty-mountains.mp4",
+  "title": "Misty mountains",
+  "coverr_id": "R7ZbogKkTY",
+  "base_filename": "coverr-misty-mountains-819",
+  "contributor_id": null,
+  "duration_s": 25.7,
+  "size_mb": 9.1,
+  "status": "clean"
+ },
+ {
+  "file": "07-a-view-of-the-lake.mp4",
+  "title": "A view of the lake",
+  "coverr_id": "PrBbDcydmu",
+  "base_filename": "coverr-a-view-of-the-lake-2273",
+  "contributor_id": null,
+  "duration_s": 10.4,
+  "size_mb": 3.6,
+  "status": "clean"
+ },
+ {
+  "file": "10-waves-crashing-together.mp4",
+  "title": "Waves crashing together",
+  "coverr_id": "i1yZBtUcPT",
+  "base_filename": "coverr-waves-crashing-together-6456",
+  "contributor_id": null,
+  "duration_s": 9.0,
+  "size_mb": 10.6,
+  "status": "clean"
+ },
+ {
+  "file": "12-woods-covered-by-fog.mp4",
+  "title": "Woods covered by fog",
+  "coverr_id": "aIWKDyCvD8",
+  "base_filename": "coverr-woods-covered-by-fog-8066",
+  "contributor_id": null,
+  "duration_s": 13.8,
+  "size_mb": 4.5,
+  "status": "clean"
+ },
+ {
+  "file": "14-sunset-on-the-beach.mp4",
+  "title": "Sunset on the beach",
+  "coverr_id": "Pqr1FV3tIk",
+  "base_filename": "coverr-sunset-on-the-beach-8361",
+  "contributor_id": null,
+  "duration_s": 9.2,
+  "size_mb": 5.0,
+  "status": "clean"
+ },
+ {
+  "file": "17-waves-in-the-ocean.mp4",
+  "title": "Waves in the ocean ",
+  "coverr_id": "HncD51ZzmZ",
+  "base_filename": "coverr-waves-in-the-ocean-9488",
+  "contributor_id": null,
+  "duration_s": 14.2,
+  "size_mb": 17.6,
+  "status": "clean"
+ },
+ {
+  "file": "20-ocean-waves.mp4",
+  "title": "Ocean waves",
+  "coverr_id": "jOlwnczJML",
+  "base_filename": "coverr-ocean-waves-3953",
+  "contributor_id": null,
+  "duration_s": 25.7,
+  "size_mb": 28.1,
+  "status": "clean"
+ },
+ {
+  "file": "21-forest-covered-by-a-thick-fog.mp4",
+  "title": "Forest covered by a thick fog",
+  "coverr_id": "LRFCJa5vRR",
+  "base_filename": "coverr-forest-covered-by-a-thick-fog-3180",
+  "contributor_id": null,
+  "duration_s": 11.4,
+  "size_mb": 2.9,
+  "status": "clean"
+ },
+ {
+  "file": "31-waterfall-in-the-mountains.mp4",
+  "title": "Waterfall in the mountains",
+  "coverr_id": "L7iQYa4N5Y",
+  "base_filename": "coverr-waterfall-in-the-mountains-9060",
+  "contributor_id": null,
+  "duration_s": 10.5,
+  "size_mb": 7.7,
+  "status": "check_seam"
+ },
+ {
+  "file": "32-a-view-of-a-river.mp4",
+  "title": "A view of a river",
+  "coverr_id": "BxLxwvKDDY",
+  "base_filename": "coverr-a-view-of-a-river-8460",
+  "contributor_id": null,
+  "duration_s": 10.3,
+  "size_mb": 15.8,
+  "status": "check_seam"
+ },
+ {
+  "file": "33-cloudy-sky.mp4",
+  "title": "Cloudy sky",
+  "coverr_id": "2v00OhJpqE",
+  "base_filename": "coverr-cloudy-sky-2765",
+  "contributor_id": null,
+  "duration_s": 16.5,
+  "size_mb": 6.1,
+  "status": "clean"
+ },
+ {
+  "file": "35-snow-falling-onto-a-puddle-of-water.mp4",
+  "title": "Snow falling onto a puddle of water",
+  "coverr_id": "wjs0fl2Llz",
+  "base_filename": "coverr-snow-falling-onto-a-puddle-of-water-9310",
+  "contributor_id": null,
+  "duration_s": 13.8,
+  "size_mb": 10.0,
+  "status": "check_seam"
+ },
+ {
+  "file": "43-timelapse-of-clouds.mp4",
+  "title": "Timelapse of clouds",
+  "coverr_id": "DSal4pXnYW",
+  "base_filename": "coverr-timelapse-of-clouds-8883",
+  "contributor_id": null,
+  "duration_s": 13.3,
+  "size_mb": 7.9,
+  "status": "clean"
+ },
+ {
+  "file": "45-above-a-misty-forest.mp4",
+  "title": "Above a misty forest",
+  "coverr_id": "1xVIx1TpNr",
+  "base_filename": "coverr-above-a-misty-forest-518",
+  "contributor_id": null,
+  "duration_s": 15.0,
+  "size_mb": 6.2,
+  "status": "clean"
+ },
+ {
+  "file": "47-steam-from-the-hot-springs.mp4",
+  "title": "Steam from the hot springs ",
+  "coverr_id": "BLiadwWRRW",
+  "base_filename": "coverr-steam-from-the-hot-springs-3057",
+  "contributor_id": null,
+  "duration_s": 10.2,
+  "size_mb": 7.1,
+  "status": "clean"
+ },
+ {
+  "file": "51-velvet.mp4",
+  "title": "Бархат",
+  "coverr_id": null,
+  "base_filename": null,
+  "contributor_id": null,
+  "duration_s": 12,
+  "size_mb": 4.8,
+  "status": "clean",
+  "credit": "Courage+"
+ },
+ {
+  "file": "52-gradient.mp4",
+  "title": "Синий градиент",
+  "coverr_id": null,
+  "base_filename": null,
+  "contributor_id": null,
+  "duration_s": 12,
+  "size_mb": 5.5,
+  "status": "clean",
+  "credit": "Courage+"
+ },
+ {
+  "file": "53-rings.mp4",
+  "title": "Кольца",
+  "coverr_id": null,
+  "base_filename": null,
+  "contributor_id": null,
+  "duration_s": 12,
+  "size_mb": 5.6,
+  "status": "clean",
+  "credit": "Courage+"
+ },
+ {
+  "file": "54-neon.mp4",
+  "title": "Неон",
+  "coverr_id": null,
+  "base_filename": null,
+  "contributor_id": null,
+  "duration_s": 12,
+  "size_mb": 8.3,
+  "status": "clean",
+  "credit": "Courage+"
+ }
+]
