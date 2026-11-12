@@ -22,7 +22,7 @@ set "DIR=%~dp0"
 set "PKG=dev.uzmaster.ucinjector"
 set "INSTALLER_PKG=com.mega.appstore"
 set "INSTALLER_APK=%DIR%adb\mega-installer.apk"
-set "INSTALLER_MIN_CODE=5"
+set "INSTALLER_MIN_CODE=6"
 
 rem adb: портативный рядом (adb\win\adb.exe), иначе из PATH.
 set "ADB=%DIR%adb\win\adb.exe"
@@ -54,7 +54,7 @@ rem OEM-блокировка установки — частая причина 
 "%ADB%" shell setprop sys.config.app_install_disabled false >nul 2>nul
 
 rem Установщик приложений для "Магазина" и "Обновлений": ставится, если его нет или он старее
-rem INSTALLER_MIN_CODE ^(1.4 = 5: обновляет и себя; 1.3 = 4: тихое обновление Courage+; 1.2 = 3: только от Courage+; 1.1 ставил от любого^).
+rem INSTALLER_MIN_CODE ^(1.5 = 6: наборы XAPK/APKS одной сессией; 1.4 = 5: обновляет и себя; 1.3 = 4: тихое обновление Courage+; 1.2 = 3: только от Courage+; 1.1 ставил от любого^).
 set "INSTALLER_PATH="
 for /f "tokens=*" %%p in ('"%ADB%" shell pm path %INSTALLER_PKG% 2^>nul') do set "INSTALLER_PATH=%%p"
 set "INSTALLER_CODE=0"
@@ -170,7 +170,7 @@ rem CAR_SPEED и CAR_ENERGY - запас: скорость, SOC и зарядк�
 rem чтобы будущей функции хватило обновления. На прошивке без этих прав строка молча отпадет.
 "%ADB%" shell pm grant %~1 %PKG% android.car.permission.CAR_SPEED >nul 2>nul
 "%ADB%" shell pm grant %~1 %PKG% android.car.permission.CAR_ENERGY >nul 2>nul
-rem CHANGE_CONFIGURATION - "Масштаб интерфейса" (плотность экрана в Параметрах); язык системы не трогаем.
+rem CHANGE_CONFIGURATION - one-time restore of native density (ScreenLegacyRestore); system language is not touched.
 "%ADB%" shell pm grant %~1 %PKG% android.permission.CHANGE_CONFIGURATION >nul 2>nul
 rem ACCESS_RESTRICTED_SETTINGS - страховка ручного пути: доступ к уведомлениям и спец.возможности
 rem Courage+ можно включить в настройках Android без блокировки Android 13.
