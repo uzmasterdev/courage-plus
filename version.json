@@ -3,8 +3,8 @@
   "versionCode": 3002,
   "versionName": "2.10.2",
   "apk": "Courage-Plus.apk",
-  "size": 13121859,
-  "sha256": "7f2f212db625c34d9c9768c98f4573a46d9030976f3cb07e7ba2bc9bb7acb36d",
-  "dev_tools": false,
-  "built": "2026-11-19T17:00:42Z"
+  "size": 13202511,
+  "sha256": "b20cc38f8587b321063926fc10b5ebe5058e9c5c6f3582cb356d758338e64553",
+  "dev_tools": true,
+  "built": "2026-11-19T17:12:47Z"
 }
