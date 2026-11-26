@@ -1,0 +1,110 @@
+{
+ "version": 1,
+ "packs": [
+  {
+   "id": "8bit",
+   "version": 1,
+   "title": {
+    "ru": "8 бит",
+    "en": "8-bit",
+    "cs": "8 bitů",
+    "nb": "8-bit"
+   },
+   "description": {
+    "ru": "Аркадные блипы старых игровых приставок, без голоса.",
+    "en": "Arcade bleeps of old game consoles, no voice.",
+    "cs": "Arkádová pípnutí starých herních konzolí, bez hlasu.",
+    "nb": "Arkadepip fra gamle spillkonsoller, uten stemme."
+   },
+   "author": "Courage+",
+   "license": "CC0-1.0 (синтез кодом)",
+   "file": "8bit-v1.zip",
+   "bytes": 120740,
+   "sha256": "091174fa4e4a8f0c250becbb31b114b32dd2ace3f649ba63526595d074191a03"
+  },
+  {
+   "id": "warcraft-alliance",
+   "version": 1,
+   "title": {
+    "ru": "Альянс",
+    "en": "Alliance",
+    "cs": "Aliance",
+    "nb": "Alliansen"
+   },
+   "description": {
+    "ru": "Люди Альянса: крестьяне, пехотинцы, стрелки. «Слушаюсь!» и «Работа сделана».",
+    "en": "Human Alliance voices: peasants, footmen, riflemen. “Yes, sir!” and “Job’s done”.",
+    "cs": "Hlasy lidské Aliance: rolníci, pěšáci, střelci.",
+    "nb": "Stemmer fra menneskenes Allianse: bønder, fotfolk og skyttere."
+   },
+   "author": "Blizzard Entertainment (записи из игры)",
+   "license": "Проприетарно: права у издателя игры, раздача на риске владельца",
+   "file": "warcraft-alliance-v1.zip",
+   "bytes": 356485,
+   "sha256": "7ccaab42c5ec175ea14201bda9f5008de42d18d612387f342cff8626305ea34b"
+  },
+  {
+   "id": "warcraft-horde",
+   "version": 1,
+   "title": {
+    "ru": "Орда",
+    "en": "Horde",
+    "cs": "Horda",
+    "nb": "Hordene"
+   },
+   "description": {
+    "ru": "Орки и таурены Орды: батраки, грунты, Тралл. Короткие и грубые реплики.",
+    "en": "Orcs and tauren of the Horde: peons, grunts, Thrall. Short and gruff.",
+    "cs": "Orkové a taurenové Hordy: peoni, grunti, Thrall.",
+    "nb": "Orker og tauren fra Hordene: peoner, grunter og Thrall."
+   },
+   "author": "Blizzard Entertainment (записи из игры)",
+   "license": "Проприетарно: права у издателя игры, раздача на риске владельца",
+   "file": "warcraft-horde-v1.zip",
+   "bytes": 355787,
+   "sha256": "15f373796dffeb63713c80923b584323b56deae666c8a3a19f1d72bdabab5b50"
+  },
+  {
+   "id": "warcraft-nightelf",
+   "version": 1,
+   "title": {
+    "ru": "Ночные эльфы",
+    "en": "Night Elves",
+    "cs": "Noční elfové",
+    "nb": "Nattalvene"
+   },
+   "description": {
+    "ru": "Стражи леса: лучницы, дриады, Тиранда. Негромкие и протяжные.",
+    "en": "Sentinels of the forest: archers, dryads, Tyrande. Soft and drawn out.",
+    "cs": "Strážci lesa: lučištnice, dryády, Tyrande.",
+    "nb": "Skogens vokterer: bueskyttere, dryader og Tyrande."
+   },
+   "author": "Blizzard Entertainment (записи из игры)",
+   "license": "Проприетарно: права у издателя игры, раздача на риске владельца",
+   "file": "warcraft-nightelf-v1.zip",
+   "bytes": 369833,
+   "sha256": "ccd8273b0625f06019f83ff847d64333a8f526021aa30d3d2652b6a570a70648"
+  },
+  {
+   "id": "warcraft-undead",
+   "version": 1,
+   "title": {
+    "ru": "Нежить",
+    "en": "Undead",
+    "cs": "Nemrtví",
+    "nb": "De udøde"
+   },
+   "description": {
+    "ru": "Скованные Плетью: гули, ацолиты, Сильвана. Холодные короткие реплики.",
+    "en": "Scourge undead: ghouls, acolytes, Sylvanas. Cold, short lines.",
+    "cs": "Nemrtví z Plagi: ghúlové, akolyté, Sylvanas.",
+    "nb": "De udøde fra Pesten: ghouler, akolytter og Sylvanas."
+   },
+   "author": "Blizzard Entertainment (записи из игры)",
+   "license": "Проприетарно: права у издателя игры, раздача на риске владельца",
+   "file": "warcraft-undead-v1.zip",
+   "bytes": 475333,
+   "sha256": "6a61c07cc7a0e811564b8d39d736d5892faec99a09d678dc59313ab15d3933b2"
+  }
+ ]
+}
