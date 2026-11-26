@@ -1,5 +1,5 @@
 {
- "version": 2,
+ "version": 3,
  "packs": [
   {
    "id": "8bit",
@@ -20,7 +20,228 @@
    "license": "CC0-1.0 (синтез кодом)",
    "file": "8bit-v1.zip",
    "bytes": 120740,
-   "sha256": "091174fa4e4a8f0c250becbb31b114b32dd2ace3f649ba63526595d074191a03"
+   "sha256": "091174fa4e4a8f0c250becbb31b114b32dd2ace3f649ba63526595d074191a03",
+   "group": "synth"
+  },
+  {
+   "id": "soviet-12-stulev",
+   "version": 1,
+   "title": {
+    "ru": "12 стульев",
+    "en": "12 Chairs",
+    "cs": "12 židlí",
+    "nb": "12 stoler"
+   },
+   "description": {
+    "ru": "«12 стульев» (1976): «Лёд тронулся, господа присяжные заседатели!», «Россия вас не забудет».",
+    "en": "“12 Chairs” (1976): “The ice has broken, gentlemen of the jury!”.",
+    "cs": "„12 židlí“ (1976): hlášky z filmu v ruštině.",
+    "nb": "«12 stoler» (1976): replikker fra filmen på russisk."
+   },
+   "author": "Мосфильм, реж. Марк Захаров (записи из фильма)",
+   "license": "Записи из фильма: права у правообладателя, раздача на риске владельца",
+   "file": "soviet-12-stulev-v1.zip",
+   "bytes": 501547,
+   "sha256": "3539f82d939cb4614923fa48f1e2db44839b61993edde1b3965d6f009be21f2b",
+   "group": "films"
+  },
+  {
+   "id": "soviet-brilliant",
+   "version": 1,
+   "title": {
+    "ru": "Бриллиантовая рука",
+    "en": "The Diamond Arm",
+    "cs": "Diamantová ruka",
+    "nb": "Diamantarmen"
+   },
+   "description": {
+    "ru": "«Бриллиантовая рука» (Гайдай, 1968): «Поехали!», «Всё будет в порядке, даже лучше», «Чёрт побери!».",
+    "en": "“The Diamond Arm” (Gaidai, 1968): “Let's go!”, “Everything will be fine, even better”.",
+    "cs": "„Diamantová ruka“ (Gajdaj, 1968): hlášky z filmu v ruštině.",
+    "nb": "«Diamantarmen» (Gajdaj, 1968): replikker fra filmen på russisk."
+   },
+   "author": "Мосфильм, реж. Леонид Гайдай (записи из фильма)",
+   "license": "Записи из фильма: права у правообладателя, раздача на риске владельца",
+   "file": "soviet-brilliant-v1.zip",
+   "bytes": 484013,
+   "sha256": "aece10e8a0890a5b7911c2fab8526c1da198a7bc9ff45c35548c6870417d7446",
+   "group": "films"
+  },
+  {
+   "id": "soviet-dzhentlmeny",
+   "version": 1,
+   "title": {
+    "ru": "Джентльмены удачи",
+    "en": "Gentlemen of Fortune",
+    "cs": "Pánové štěstěna",
+    "nb": "Lykkens gentlemen"
+   },
+   "description": {
+    "ru": "«Джентльмены удачи» (1971): «Надо!», «Есть! Есть!», «Чем больше сдадим, тем лучше».",
+    "en": "“Gentlemen of Fortune” (1971): “Must do!”, “Aye, aye!”, “The more we hand in, the better”.",
+    "cs": "„Pánové štěstěna“ (1971): hlášky z filmu v ruštině.",
+    "nb": "«Lykkens gentlemen» (1971): replikker fra filmen på russisk."
+   },
+   "author": "Мосфильм, реж. Александр Серый (записи из фильма)",
+   "license": "Записи из фильма: права у правообладателя, раздача на риске владельца",
+   "file": "soviet-dzhentlmeny-v1.zip",
+   "bytes": 371467,
+   "sha256": "19e2a73a35642ac3a669f03893c7af51cf38ef774525d1f5ee2f55d56f900fc0",
+   "group": "films"
+  },
+  {
+   "id": "soviet-gaidai",
+   "version": 1,
+   "title": {
+    "ru": "Комедии Гайдая",
+    "en": "Gaidai comedies",
+    "cs": "Komedie Gajdaje",
+    "nb": "Gajdais komedier"
+   },
+   "description": {
+    "ru": "«Бриллиантовая рука», «Операция Ы», «Кавказская пленница»: «Поехали!», «Машина — зверь!», «Всё будет в порядке, даже лучше».",
+    "en": "“The Diamond Arm”, “Operation Y”, “Kidnapping, Caucasian Style”: “Let's go!”, “The car is a beast!”.",
+    "cs": "„Diamantová ruka“, „Operace Y“, „Kavkazská zajatkyně“: hlášky v ruštině.",
+    "nb": "«Diamantarmen», «Operasjon Y», «Kaukasisk fange»: replikker på russisk."
+   },
+   "author": "Мосфильм, реж. Леонид Гайдай (записи из фильмов)",
+   "license": "Записи из фильмов: права у правообладателя, раздача на риске владельца",
+   "file": "soviet-gaidai-v1.zip",
+   "bytes": 467593,
+   "sha256": "3870fd5eb35882a88ea10f03a054a21467c2876c7c900ea271553c340243e49f",
+   "group": "films"
+  },
+  {
+   "id": "soviet-ivan-vasilevich",
+   "version": 1,
+   "title": {
+    "ru": "Иван Васильевич",
+    "en": "Ivan Vasilievich",
+    "cs": "Ivan Vasiljevič",
+    "nb": "Ivan Vasiljevitsj"
+   },
+   "description": {
+    "ru": "«Иван Васильевич меняет профессию» (Гайдай, 1973): «Лепота!», «Даю честное, благородное слово», «Танцуют все!».",
+    "en": "“Ivan Vasilievich: Back to the Future” (Gaidai, 1973): “Lepota!”, “I give my honest, noble word”, “Everybody dance!”.",
+    "cs": "„Ivan Vasiljevič mění povolání“ (Gajdaj, 1973): hlášky z filmu v ruštině.",
+    "nb": "«Ivan Vasiljevitsj bytter yrke» (Gajdaj, 1973): replikker fra filmen på russisk."
+   },
+   "author": "Мосфильм, реж. Леонид Гайдай (записи из фильма)",
+   "license": "Записи из фильма: права у правообладателя, раздача на риске владельца",
+   "file": "soviet-ivan-vasilevich-v1.zip",
+   "bytes": 428015,
+   "sha256": "0726005b96f6ca1bd7f025c50b63af50e4e296051741ca2086a6bbd89e6764d0",
+   "group": "films"
+  },
+  {
+   "id": "soviet-kin-dza-dza",
+   "version": 1,
+   "title": {
+    "ru": "Кин-дза-дза!",
+    "en": "Kin-dza-dza!",
+    "cs": "Kin-dza-dza!",
+    "nb": "Kin-dza-dza!"
+   },
+   "description": {
+    "ru": "«Кин-дза-дза!» (1986): «Ку!», «Принеси песочку, родной», «Гравицапа».",
+    "en": "“Kin-dza-dza!” (1986): “Ku!”, “Bring some sand, dear”.",
+    "cs": "„Kin-dza-dza!“ (1986): hlášky z filmu v ruštině.",
+    "nb": "«Kin-dza-dza!» (1986): replikker fra filmen på russisk."
+   },
+   "author": "Мосфильм, реж. Георгий Данелия (записи из фильма)",
+   "license": "Записи из фильма: права у правообладателя, раздача на риске владельца",
+   "file": "soviet-kin-dza-dza-v1.zip",
+   "bytes": 189041,
+   "sha256": "691fd2af2ba9afdda28c45ed37885eb7e92846e506d9a90d5c4fb52cf5a88e79",
+   "group": "films"
+  },
+  {
+   "id": "soviet-komedii",
+   "version": 1,
+   "title": {
+    "ru": "Комедии СССР",
+    "en": "Soviet comedies",
+    "cs": "Sovětské komedie",
+    "nb": "Sovjetiske komedier"
+   },
+   "description": {
+    "ru": "«Джентльмены удачи», «12 стульев», «Мимино», «Кин-дза-дза!»: «Надо!», «Я так думаю!», «Чем больше сдадим, тем лучше».",
+    "en": "“Gentlemen of Fortune”, “12 Chairs”, “Mimino”, “Kin-dza-dza!”: classic Soviet comedy lines.",
+    "cs": "„Pánové štěstěna“, „12 židlí“, „Mimino“, „Kin-dza-dza!“: hlášky v ruštině.",
+    "nb": "«Lykkens gentlemen», «12 stoler», «Mimino», «Kin-dza-dza!»: replikker på russisk."
+   },
+   "author": "Мосфильм, Ленфильм, Грузия-фильм (записи из фильмов)",
+   "license": "Записи из фильмов: права у правообладателя, раздача на риске владельца",
+   "file": "soviet-komedii-v1.zip",
+   "bytes": 547108,
+   "sha256": "6408ce57609f098bafc0eed04406b670f6e653c9ba196ab52cf3ce7fbb91415d",
+   "group": "films"
+  },
+  {
+   "id": "soviet-multfilmy",
+   "version": 1,
+   "title": {
+    "ru": "Советские мультфильмы",
+    "en": "Soviet cartoons",
+    "cs": "Sovětské kreslené filmy",
+    "nb": "Sovjetiske tegnefilmer"
+   },
+   "description": {
+    "ru": "Попугай Кеша, Винни-Пух, «Падал прошлогодний снег», «Ну, погоди!»: «Свободу попугаям!», «Маловато будет!».",
+    "en": "Soviet cartoons: Kesha the parrot, Winnie-the-Pooh, “Last Year's Snow Was Falling”, “Nu, pogodi!”.",
+    "cs": "Sovětské kreslené filmy: papoušek Kéša, Medvídek Pú, „Nu, pogodi!“.",
+    "nb": "Sovjetiske tegnefilmer: papegøyen Kesja, Ole Brumm, «Nu, pogodi!»."
+   },
+   "author": "Союзмультфильм (записи из мультфильмов)",
+   "license": "Записи из мультфильмов: права у правообладателя, раздача на риске владельца",
+   "file": "soviet-multfilmy-v1.zip",
+   "bytes": 477683,
+   "sha256": "952d9940c73b84f9bec7b4be19403b3682b608bb2c28c62810e2dd9139a40d3a",
+   "group": "cartoons"
+  },
+  {
+   "id": "soviet-prostokvashino",
+   "version": 1,
+   "title": {
+    "ru": "Простоквашино",
+    "en": "Prostokvashino",
+    "cs": "Prostokvašino",
+    "nb": "Prostokvasjino"
+   },
+   "description": {
+    "ru": "«Трое из Простоквашино»: «Ура! Заработало!», «Я вам посылку принёс, только я вам её не отдам».",
+    "en": "“Three from Prostokvashino”: “Hooray! It works!”, the postman Pechkin and Matroskin.",
+    "cs": "„Tři z Prostokvašina“: pošťák Pečkin a kocour Matroskin.",
+    "nb": "«Tre fra Prostokvasjino»: postmann Pesjkin og katten Matroskin."
+   },
+   "author": "Союзмультфильм (записи из мультфильма)",
+   "license": "Записи из мультфильма: права у правообладателя, раздача на риске владельца",
+   "file": "soviet-prostokvashino-v1.zip",
+   "bytes": 614570,
+   "sha256": "045ae8d6e795aa94540b2ebc4acb90375ccd1ec82a3a7ea8a0e3f66e12f3083d",
+   "group": "cartoons"
+  },
+  {
+   "id": "soviet-shurik",
+   "version": 1,
+   "title": {
+    "ru": "Шурик",
+    "en": "Shurik",
+    "cs": "Šurik",
+    "nb": "Sjurik"
+   },
+   "description": {
+    "ru": "Приключения Шурика: «Операция Ы» и «Кавказская пленница». «Машина — зверь!», «Только без жертв!».",
+    "en": "Shurik's adventures: “Operation Y” and “Kidnapping, Caucasian Style”.",
+    "cs": "Dobrodružství Šurika: „Operace Y“ a „Kavkazská zajatkyně“.",
+    "nb": "Sjuriks eventyr: «Operasjon Y» og «Kaukasisk fange»."
+   },
+   "author": "Мосфильм, реж. Леонид Гайдай (записи из фильмов)",
+   "license": "Записи из фильмов: права у правообладателя, раздача на риске владельца",
+   "file": "soviet-shurik-v1.zip",
+   "bytes": 565244,
+   "sha256": "e9cce14e0bbbc9a9730470899d24f15c96c293a35d75b2405303983cb2c499eb",
+   "group": "films"
   },
   {
    "id": "warcraft-alliance",
@@ -41,7 +262,8 @@
    "license": "Проприетарно: права у издателя игры, раздача на риске владельца",
    "file": "warcraft-alliance-v1.zip",
    "bytes": 356485,
-   "sha256": "7ccaab42c5ec175ea14201bda9f5008de42d18d612387f342cff8626305ea34b"
+   "sha256": "7ccaab42c5ec175ea14201bda9f5008de42d18d612387f342cff8626305ea34b",
+   "group": "games"
   },
   {
    "id": "warcraft-horde",
@@ -62,7 +284,8 @@
    "license": "Проприетарно: права у издателя игры, раздача на риске владельца",
    "file": "warcraft-horde-v1.zip",
    "bytes": 355787,
-   "sha256": "15f373796dffeb63713c80923b584323b56deae666c8a3a19f1d72bdabab5b50"
+   "sha256": "15f373796dffeb63713c80923b584323b56deae666c8a3a19f1d72bdabab5b50",
+   "group": "games"
   },
   {
    "id": "warcraft-nightelf",
@@ -83,7 +306,8 @@
    "license": "Проприетарно: права у издателя игры, раздача на риске владельца",
    "file": "warcraft-nightelf-v1.zip",
    "bytes": 369833,
-   "sha256": "ccd8273b0625f06019f83ff847d64333a8f526021aa30d3d2652b6a570a70648"
+   "sha256": "ccd8273b0625f06019f83ff847d64333a8f526021aa30d3d2652b6a570a70648",
+   "group": "games"
   },
   {
    "id": "warcraft-undead",
@@ -104,7 +328,8 @@
    "license": "Проприетарно: права у издателя игры, раздача на риске владельца",
    "file": "warcraft-undead-v1.zip",
    "bytes": 475333,
-   "sha256": "6a61c07cc7a0e811564b8d39d736d5892faec99a09d678dc59313ab15d3933b2"
+   "sha256": "6a61c07cc7a0e811564b8d39d736d5892faec99a09d678dc59313ab15d3933b2",
+   "group": "games"
   }
  ]
 }
