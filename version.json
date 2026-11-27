@@ -1,10 +1,10 @@
 {
   "package": "dev.uzmaster.ucinjector",
-  "versionCode": 3009,
-  "versionName": "2.10.9",
+  "versionCode": 3010,
+  "versionName": "2.10.10",
   "apk": "Courage-Plus.apk",
-  "size": 13756592,
-  "sha256": "a2773a9a89de3a99ed3ee653d04fe94d958ed70302048b631156e2204ecfa426",
+  "size": 13726602,
+  "sha256": "e5c5bd5f3454bd6b4de9791a4d53cfca08420a219dd35bc3fed15119a7c97f2d",
   "dev_tools": true,
-  "built": "2026-11-26T14:20:59Z"
+  "built": "2026-11-27T09:15:10Z"
 }
